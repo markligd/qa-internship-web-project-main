@@ -8,51 +8,53 @@ import org.openqa.selenium.support.FindBy;
  */
 public class HomePage extends BasePage {
 
-    @FindBy(id = "btnResetSearchCriteria")
-    private WebElement btnResetSearchCriteria;
+  @FindBy(id = "btnResetSearchCriteria")
+  private WebElement ResetSearchCriteria;
 
-    @FindBy(id = "btnSearch")
-    private WebElement btnSearch;
+  @FindBy(id = "btnSearch")
+  private WebElement Search;
 
-    @FindBy(id = "tbTerm")
-    private WebElement tbTerm;
+  @FindBy(id = "tbTerm")
+  private WebElement Term;
 
-    @FindBy(id = "tbRatingFrom")
-    private WebElement tbRatingFrom;
+  @FindBy(id = "tbRatingFrom")
+  private WebElement RatingFrom;
 
-    @FindBy(id = "tbRatingTo")
-    private WebElement tbRatingTo;
+  @FindBy(id = "tbRatingTo")
+  private WebElement RatingTo;
 
-    @FindBy(id = "tbPriceFrom")
-    private WebElement tbPriceFrom;
+  @FindBy(id = "tbPriceFrom")
+  private WebElement PriceFrom;
 
-    @FindBy(id = "tbPriceTo")
-    private WebElement tbPriceTo;
+  @FindBy(id = "tbPriceTo")
+  private WebElement PriceTo;
 
-    private void typeIn(String value, WebElement targetElement) {
-        targetElement.clear();
-        targetElement.sendKeys(value);
-    }
+  private void typeIn(String value, WebElement targetElement) {
+    targetElement.clear();
+    targetElement.sendKeys(value);
+  }
 
-    public void typeInRatingFrom(String ratingFrom){
-        typeIn(ratingFrom, tbRatingFrom);
-    }
-    public void typeInRatingTo(String ratingTo){
-        typeIn(ratingTo, tbRatingTo);
-    }
-    public void typeInPriceFrom(String priceFrom){
-        typeIn(priceFrom, tbPriceFrom);
-    }
-    public void typeInPriceTo(String priceTo){
-        typeIn(priceTo, tbPriceTo);
-    }
+  public void typeInRatingFrom(String ratingFrom) {
+    typeIn(ratingFrom, RatingFrom);
+  }
 
-    public void clickSearchButton(){
-        btnSearch.click();
-    }
+  public void typeInRatingTo(String ratingTo) {
+    typeIn(ratingTo, RatingTo);
+  }
 
-    public void clickResetButton(){
-        btnResetSearchCriteria.click();
-    }
+  public void typeInPriceFrom(String priceFrom) {
+    typeIn(priceFrom, PriceFrom);
+  }
 
+  public void typeInPriceTo(String priceTo) {
+    typeIn(priceTo, PriceTo);
+  }
+
+  public void clickSearchButton() {
+    Search.click();
+  }
+
+  public void clickResetButton() {
+    ResetSearchCriteria.click();
+  }
 }

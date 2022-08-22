@@ -1,13 +1,14 @@
 package com.griddynamics.qa.vikta.uitesting.sample.tests;
 
+import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.LoginSteps;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.RegistrationSteps;
 import lombok.val;
 import org.testng.annotations.Test;
 
 /**
  * Feature: User registration
- *   As a guest user
- *   I should be able to register new user account(sign-up) and use it to login into the application
+ * As a guest user
+ * I should be able to register new user account(sign-up) and use it to login into the application
  */
 public class RegistrationTest extends BaseTest {
 
@@ -16,32 +17,38 @@ public class RegistrationTest extends BaseTest {
    */
   @Test(groups = { "smoke", "signup" })
   public void testRegularUserIsAbleToLogin() {
-    // Given user opens Registration page
     registrationSteps.openRegistrationPage();
 
-    // When user types in some random values.
-    val loginName = registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.LOGINNAME);
+    String loginName = registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.LOGINNAME);
     registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.SURNAME);
     registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.FIRSTNAME);
     registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PATRONIM);
-    // TODO: uncomment, debug, implement - make it working.
-    //registrationSteps.typeInto(RegistrationSteps.FieldName.EMAIL);
-    //registrationSteps.typeInto(RegistrationSteps.FieldName.PASSWORD);
-    // TODO: And user hits the Register User button
+    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.EMAIL);
+    String password = registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PASSWORD);
 
-    // Then Registration page the current one
+    registrationSteps.clickRegisterUserButton();
     registrationSteps.verifyCurrentPageIsRegistration();
-    // TODO: Then Successful registration message is displayed
-    // Then Successful registration message contains the login name used
+    registrationSteps.verifySuccessfulRegistrationMessageIsDisplayed();
     registrationSteps.verifySuccessfulRegistrationMessageContainsNewUsername(loginName);
     // TODO: Develop the rest of the scenario. E.g. login as new user etc.
+
+    loginSteps.openLoginPage();
+    loginSteps.login(loginName, password);
   }
 
-  /**
-   * Scenario: Guest user is NOT able to register regular user account using some existing user account's name
-   */
-  @Test(enabled = false)
-  public void testImpossibleToReUseEmailForRegistration() {
-    //# TODO: Develop the rest of the scenario.
+  @Test
+  public void testImpossibleToReUseAccountNameForRegistration() {
+    registrationSteps.openRegistrationPage();
+
+    val loginName = registrationSteps.typeInUserNameAlreadyProvided();
+    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.SURNAME);
+    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.FIRSTNAME);
+    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PATRONIM);
+    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.EMAIL);
+    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PASSWORD);
+
+    registrationSteps.clickRegisterUserButton();
+    registrationSteps.verifyCurrentPageIsRegistration();
+    registrationSteps.checkFailedRegistrationMessageIsDisplayed();
   }
 }

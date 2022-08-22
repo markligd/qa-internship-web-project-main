@@ -49,7 +49,6 @@ public class LoginSteps extends BaseSteps {
   @Step
   public void verifyErrorMessage(String text) {
     getWait().until(ExpectedConditions.visibilityOf(page().getErrorWebElement()));
-    // Have a look at https://assertj.github.io/doc/
     assertThat(page().getErrorMessage().trim())
       .as("Error message was nor shown or had unexpected content.")
       .contains(text);

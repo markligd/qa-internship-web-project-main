@@ -3,6 +3,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +16,9 @@ public class RegistrationSteps extends BaseSteps {
   private static String SUCCESSFUL_REGISTRATION_MESSAGE_PREFIX =
     "User has been registered successfully: ";
 
+  private static String FAILED_REGISTRATION_MESSAGE_PREFIX =
+    "There is already a user registered with the loginname provided";
+
   public RegistrationSteps(WebDriver driver) {
     super(driver);
   }
@@ -24,6 +28,7 @@ public class RegistrationSteps extends BaseSteps {
     SURNAME,
     FIRSTNAME,
     PATRONIM,
+    EMAIL,
     PASSWORD,
   }
 
@@ -52,11 +57,14 @@ public class RegistrationSteps extends BaseSteps {
         valueToReturn = generateRandomString();
         page().typeInPatronim(valueToReturn);
         break;
+      case EMAIL:
+        valueToReturn = String.format("%s@exampleemail.com", generateRandomString());
+        page().typeInEmail(valueToReturn);
+        break;
       case PASSWORD:
         valueToReturn = generateRandomString();
         page().typeInPassword(valueToReturn);
         break;
-      //TODO: Add the rest... .
       default:
         throw new IllegalArgumentException(
           "Unsupported Registration page field name: " + fieldName
@@ -66,7 +74,10 @@ public class RegistrationSteps extends BaseSteps {
     return valueToReturn;
   }
 
-  //TODO: Add rest of the steps needed.
+  @Step
+  public void clickRegisterUserButton() {
+    page().clickRegisterUserButton();
+  }
 
   @Step
   public void verifyCurrentPageIsRegistration() {
@@ -77,17 +88,31 @@ public class RegistrationSteps extends BaseSteps {
   }
 
   @Step
+  public String typeInUserNameAlreadyProvided() {
+    String existingLoginName = getData().userName();
+    page().typeInLoginname(existingLoginName);
+    return existingLoginName;
+  }
+
+  @Step
   public void verifySuccessfulRegistrationMessageIsDisplayed() {
     getWait().until(ExpectedConditions.visibilityOf(page().getMessageWebElement()));
-    // Have a look at https://assertj.github.io/doc/
     assertThat(page().getMessageText().trim())
       .as("Successful registration message was nor shown or had unexpected content.")
       .startsWith(SUCCESSFUL_REGISTRATION_MESSAGE_PREFIX);
   }
 
   @Step
+  public void checkFailedRegistrationMessageIsDisplayed() {
+    getWait()
+      .until(ExpectedConditions.visibilityOf(page().getUserAlreadyExistsMessageWebElement()));
+    assertThat(page().getUserAlreadyExistsMessageText().trim())
+      .as("Failed registration message was nor shown or had unexpected content.")
+      .startsWith(FAILED_REGISTRATION_MESSAGE_PREFIX);
+  }
+
+  @Step
   public void verifySuccessfulRegistrationMessageContainsNewUsername(String loginnameUsed) {
-    // Have a look at https://assertj.github.io/doc/
     assertThat(page().getMessageText().trim())
       .as("Successful registration message was expected to contain the new username used.")
       .contains(loginnameUsed);

@@ -72,7 +72,7 @@ abstract class BaseSteps {
     }
   }
 
-  String generateRandomString() {
+  public String generateRandomString() {
     return generateRandomString(16); //Remember!!! Magic numbers are bad, bad, bad practice!
   }
 }
