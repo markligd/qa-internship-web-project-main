@@ -26,17 +26,17 @@ public class LoginPage {
   @FindBy(id = "btnSubmitGoToRegistration")
   private WebElement submitGoToRegistrationButton;
 
-  public HomePage login(String username, String password) {
-    tryLogin(username, password);
+  public HomePage login(String accountUsername, String accountPassword) {
+    tryLogin(accountUsername, accountPassword);
     return new HomePage();
   }
 
-  public void tryLogin(String username, String password) {
+  public void tryLogin(String accountUsername, String accountPassword) {
     loginName.clear();
-    loginName.sendKeys(username);
+    loginName.sendKeys(accountUsername);
 
-    this.password.clear();
-    this.password.sendKeys(password);
+    password.clear();
+    password.sendKeys(accountPassword);
 
     submitLoginButton.click();
   }

@@ -20,21 +20,17 @@ public class RegistrationPage extends BasePage {
   @FindBy(id = "tbMiddleName")
   private WebElement middleName;
 
-  //email added
   @FindBy(id = "tbEmail")
   private WebElement email;
 
   @FindBy(id = "tbPassword")
   private WebElement password;
 
-  //co to jest?
   @FindBy(id = "btnSubmitGoToHome")
   private WebElement goToHomeButton;
 
   @FindBy(id = "tSuccessMessage")
   private WebElement successMessage;
-
-  //register button added, user already exists also
 
   @FindBy(id = "btnRegister")
   private WebElement registerButton;

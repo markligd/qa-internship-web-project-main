@@ -20,18 +20,14 @@ public class RegistrationTest extends BaseTest {
   public void testRegularUserIsAbleToRegisterAndLogin() {
     registrationSteps.openRegistrationPage();
 
-    String loginName = registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.LOGINNAME);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.SURNAME);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.FIRSTNAME);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PATRONIM);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.EMAIL);
-    String password = registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PASSWORD);
+    String loginName = registrationSteps.fillInLoginInRegistrationForm();
+    registrationSteps.fillInRegistrationForm();
+    String password = registrationSteps.fillInPasswordInRegistrationForm();
 
     registrationSteps.clickRegisterUserButton();
     registrationSteps.verifyCurrentPageIsRegistration();
     registrationSteps.verifySuccessfulRegistrationMessageIsDisplayed();
     registrationSteps.verifySuccessfulRegistrationMessageContainsNewUsername(loginName);
-
 
     loginSteps.openLoginPage();
     loginSteps.login(loginName, password);
@@ -42,12 +38,10 @@ public class RegistrationTest extends BaseTest {
   public void canNotRegisterExistingAccountName() {
     registrationSteps.openRegistrationPage();
 
-    String loginName = registrationSteps.typeInExistingUsername();
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.SURNAME);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.FIRSTNAME);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PATRONIM);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.EMAIL);
-    registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PASSWORD);
+    registrationSteps.typeInExistingUsername();
+    registrationSteps.fillInRegistrationForm();
+    registrationSteps.fillInPasswordInRegistrationForm();
+
 
     registrationSteps.clickRegisterUserButton();
     registrationSteps.verifyCurrentPageIsRegistration();

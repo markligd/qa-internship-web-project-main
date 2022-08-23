@@ -3,7 +3,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
-import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
+import com.griddynamics.qa.vikta.uitesting.sample.utils.FillInStringGenerator;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,56 +23,41 @@ public class RegistrationSteps extends BaseSteps {
     super(driver);
   }
 
-  public enum FieldName {
-    LOGINNAME,
-    SURNAME,
-    FIRSTNAME,
-    PATRONIM,
-    EMAIL,
-    PASSWORD,
-  }
-
   @Step
   public void openRegistrationPage() {
     getDriver().get(getData().registrationPageUrl());
   }
 
-  //fill
   @Step
-  public String typeRandomValueInto(FieldName fieldName) {
-    String valueToReturn;
-    switch (fieldName) {
-      case LOGINNAME:
-        valueToReturn = generateRandomString();
-        page().typeInLoginname(valueToReturn);
-        break;
-      case SURNAME:
-        valueToReturn = generateRandomString();
-        page().typeInSurname(valueToReturn);
-        break;
-      case FIRSTNAME:
-        valueToReturn = generateRandomString();
-        page().typeInFirstname(valueToReturn);
-        break;
-      case PATRONIM:
-        valueToReturn = generateRandomString();
-        page().typeInPatronim(valueToReturn);
-        break;
-      case EMAIL:
-        valueToReturn = String.format("%s@exampleemail.com", generateRandomString());
-        page().typeInEmail(valueToReturn);
-        break;
-      case PASSWORD:
-        valueToReturn = generateRandomString();
-        page().typeInPassword(valueToReturn);
-        break;
-      default:
-        throw new IllegalArgumentException(
-          "Unsupported Registration page field name: " + fieldName
-        );
-    }
+  public void fillInRegistrationForm() {
+    String randomSurname = FillInStringGenerator.generateRandomString();
+    page().typeInSurname(randomSurname);
 
-    return valueToReturn;
+    String randomFirstName = FillInStringGenerator.generateRandomString();
+    page().typeInFirstname(randomFirstName);
+
+    String randomPatronim = FillInStringGenerator.generateRandomString();
+    page().typeInPatronim(randomPatronim);
+
+    String randomEmail = String.format(
+      "%s@exampleemail.com",
+      FillInStringGenerator.generateRandomString()
+    );
+    page().typeInEmail(randomEmail);
+  }
+
+  @Step
+  public String fillInLoginInRegistrationForm() {
+    String randomLoginName = FillInStringGenerator.generateRandomString();
+    page().typeInLoginname(randomLoginName);
+    return randomLoginName;
+  }
+
+  @Step
+  public String fillInPasswordInRegistrationForm() {
+    String randomPassword = FillInStringGenerator.generateRandomString();
+    page().typeInPassword(randomPassword);
+    return randomPassword;
   }
 
   @Step
