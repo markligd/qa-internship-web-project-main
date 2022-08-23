@@ -2,7 +2,7 @@ package com.griddynamics.qa.vikta.uitesting.sample.utils;
 
 import java.util.UUID;
 
-public class FillInStringGenerator {
+public class StringHelper {
 
   public static String generateRandomString(int maxLength) {
     String candidate = UUID.randomUUID().toString().replaceAll("\\d", "A");
