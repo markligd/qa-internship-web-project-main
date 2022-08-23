@@ -60,19 +60,4 @@ abstract class BaseSteps {
   void assertCurrentPageUrl(String expectedUrl, String messageOnFail) {
     assertThat(getDriver().getCurrentUrl()).as(messageOnFail).contains(expectedUrl);
   }
-
-  //TODO: Make static and move to some Utils.
-  //TODO: Use something like JavaFaker.
-  private String generateRandomString(int maxLength) {
-    String candidate = UUID.randomUUID().toString().replaceAll("\\d", "A");
-    if (candidate.length() >= maxLength) {
-      return candidate.substring(0, maxLength);
-    } else {
-      return candidate;
-    }
-  }
-
-  String generateRandomString() {
-    return generateRandomString(16); //Remember!!! Magic numbers are bad, bad, bad practice!
-  }
 }

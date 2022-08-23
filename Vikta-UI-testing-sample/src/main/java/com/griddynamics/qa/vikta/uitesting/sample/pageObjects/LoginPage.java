@@ -9,48 +9,53 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage {
 
   @FindBy(id = "tfLoginname")
-  private WebElement txtLoginname;
+  private WebElement loginName;
 
   @FindBy(id = "tfPassword")
-  private WebElement txtPassword;
+  private WebElement password;
 
   @FindBy(id = "btnSubmitLogin")
-  private WebElement btnSubmitLogin;
+  private WebElement submitLoginButton;
 
   @FindBy(id = "btnSubmitGoToHome")
-  private WebElement btnGoToHome;
+  private WebElement goToHomeButton;
 
   @FindBy(xpath = "//div[@class='login']//p[contains(@style, 'color: #FF1C19')]")
-  private WebElement lblError;
+  private WebElement error;
 
-  //TODO: Add [Sign-up] button.
+  @FindBy(id = "btnSubmitGoToRegistration")
+  private WebElement submitGoToRegistrationButton;
 
-  public HomePage login(String username, String password) {
-    tryLogin(username, password);
+  public HomePage login(String accountUsername, String accountPassword) {
+    tryLogin(accountUsername, accountPassword);
     return new HomePage();
   }
 
-  public void tryLogin(String username, String password) {
-    txtLoginname.clear();
-    txtLoginname.sendKeys(username);
+  public void tryLogin(String accountUsername, String accountPassword) {
+    loginName.clear();
+    loginName.sendKeys(accountUsername);
 
-    txtPassword.clear();
-    txtPassword.sendKeys(password);
+    password.clear();
+    password.sendKeys(accountPassword);
 
-    btnSubmitLogin.click();
+    submitLoginButton.click();
+  }
+
+  public RegistrationPage gotoRegistration() {
+    submitGoToRegistrationButton.click();
+    return new RegistrationPage();
   }
 
   public HomePage gotoHome() {
-    btnGoToHome.click();
-
+    goToHomeButton.click();
     return new HomePage();
   }
 
   public String getErrorMessage() {
-    return lblError.getText();
+    return error.getText();
   }
 
   public WebElement getErrorWebElement() {
-    return lblError;
+    return error;
   }
 }

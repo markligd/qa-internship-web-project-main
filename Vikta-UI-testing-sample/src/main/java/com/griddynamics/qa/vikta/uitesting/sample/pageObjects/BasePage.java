@@ -14,87 +14,84 @@ import org.openqa.selenium.support.FindBy;
  */
 public class BasePage {
 
-
   @FindBy(id = "sploggedInName")
-  private WebElement sploggedInName;
+  private WebElement loggedInName;
 
   @FindBy(id = "aLogoutTop")
-  private WebElement aLogoutTop;
+  private WebElement logoutTop;
 
   @FindBy(id = "aEditProfile")
-  private WebElement aEditProfile;
+  private WebElement editProfile;
 
   @FindBy(id = "aAddCard")
-  private WebElement aAddCard;
+  private WebElement addCard;
 
   @FindBy(id = "aCard")
-  private WebElement aCard;
+  private WebElement card;
 
   @FindBy(id = "aAddAddress")
-  private WebElement aAddAddress;
+  private WebElement addAddress;
 
   @FindBy(id = "aAddresses")
-  private WebElement aAddresses;
+  private WebElement addresses;
 
   @FindBy(id = "aHome")
-  private WebElement aHome;
+  private WebElement home;
 
   @FindBy(id = "aLogoutBottom")
-  private WebElement aLogoutBottom;
+  private WebElement logoutBottom;
 
   @FindBy(id = "aToCartTop")
-  private WebElement aToCartTop;
+  private WebElement toCartTop;
 
   @FindBy(id = "spCartTopMsg")
-  private WebElement spCartTopMsg;
+  private WebElement cartTopMsg;
 
   public String getCurrentUserName() {
-    return sploggedInName.getText();
+    return loggedInName.getText();
   }
 
   public WebElement getLoggedInName() {
-    return sploggedInName;
+    return loggedInName;
   }
 
-
   public void clickLogout() {
-    aLogoutTop.click();
+    logoutTop.click();
   }
 
   public void clickHome() {
-    aHome.click();
+    home.click();
   }
 
   public void goToCart() {
-    aToCartTop.click();
+    toCartTop.click();
   }
 
   public void clickAddresses() {
-    aAddresses.click();
+    addresses.click();
   }
 
   public void clickAddAddress() {
-    aAddAddress.click();
+    addAddress.click();
   }
 
   public void clickLogoutBottom() {
-    aLogoutBottom.click();
+    logoutBottom.click();
   }
 
   public void clickAddCard() {
-    aAddCard.click();
+    addCard.click();
   }
 
   public void clickEditProfile() {
-    aEditProfile.click();
+    editProfile.click();
   }
 
   public void clickCards() {
-    aCard.click();
+    card.click();
   }
 
   public String getNumberOfItemsInCart() {
-    return spCartTopMsg.getText();
+    return cartTopMsg.getText();
   }
-
 }

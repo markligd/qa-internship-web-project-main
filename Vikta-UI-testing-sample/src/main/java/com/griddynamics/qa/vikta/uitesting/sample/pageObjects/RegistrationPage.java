@@ -9,48 +9,57 @@ import org.openqa.selenium.support.FindBy;
 public class RegistrationPage extends BasePage {
 
   @FindBy(id = "tbLoginName")
-  private WebElement tbLoginName;
+  private WebElement loginName;
 
   @FindBy(id = "tbSurname")
-  private WebElement tbSurname;
+  private WebElement surname;
 
   @FindBy(id = "tbFirstName")
-  private WebElement tbFirstName;
+  private WebElement firstName;
 
   @FindBy(id = "tbMiddleName")
-  private WebElement tbMiddleName;
+  private WebElement middleName;
 
-  //TODO: Add missing elements.
+  @FindBy(id = "tbEmail")
+  private WebElement email;
 
   @FindBy(id = "tbPassword")
-  private WebElement tbPassword;
+  private WebElement password;
 
   @FindBy(id = "btnSubmitGoToHome")
-  private WebElement btnGoToHome;
+  private WebElement goToHomeButton;
 
   @FindBy(id = "tSuccessMessage")
-  private WebElement tSuccessMessage;
+  private WebElement successMessage;
 
-  //TODO: Add [Register User] button support.
+  @FindBy(id = "btnRegister")
+  private WebElement registerButton;
+
+  @FindBy(id = "lLoginName")
+  private WebElement loginNameMessage;
 
   public void typeInLoginname(String value) {
-    typeIn(value, tbLoginName);
+    typeIn(value, loginName);
   }
 
   public void typeInSurname(String value) {
-    typeIn(value, tbSurname);
+    typeIn(value, surname);
   }
 
   public void typeInFirstname(String value) {
-    typeIn(value, tbFirstName);
+    typeIn(value, firstName);
   }
 
   public void typeInPatronim(String value) {
-    typeIn(value, tbMiddleName);
+    typeIn(value, middleName);
+  }
+
+  public void typeInEmail(String value) {
+    typeIn(value, email);
   }
 
   public void typeInPassword(String value) {
-    typeIn(value, tbPassword);
+    typeIn(value, password);
   }
 
   private void typeIn(String value, WebElement targetElement) {
@@ -59,10 +68,22 @@ public class RegistrationPage extends BasePage {
   }
 
   public String getMessageText() {
-    return tSuccessMessage.getText();
+    return successMessage.getText();
   }
 
   public WebElement getMessageWebElement() {
-    return tSuccessMessage;
+    return successMessage;
+  }
+
+  public String getUserAlreadyExistsMessageText() {
+    return loginNameMessage.getText();
+  }
+
+  public WebElement getUserAlreadyExistsMessageWebElement() {
+    return loginNameMessage;
+  }
+
+  public void clickRegisterUserButton() {
+    registerButton.click();
   }
 }
