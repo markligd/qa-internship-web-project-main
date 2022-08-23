@@ -1,5 +1,6 @@
 package com.griddynamics.qa.vikta.uitesting.sample.tests;
 
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.LoginSteps;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.RegistrationSteps;
 import lombok.val;
@@ -16,7 +17,7 @@ public class RegistrationTest extends BaseTest {
    * Scenario: Regular user is able to login
    */
   @Test(groups = { "smoke", "signup" })
-  public void testRegularUserIsAbleToLogin() {
+  public void testRegularUserIsAbleToRegisterAndLogin() {
     registrationSteps.openRegistrationPage();
 
     String loginName = registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.LOGINNAME);
@@ -30,17 +31,18 @@ public class RegistrationTest extends BaseTest {
     registrationSteps.verifyCurrentPageIsRegistration();
     registrationSteps.verifySuccessfulRegistrationMessageIsDisplayed();
     registrationSteps.verifySuccessfulRegistrationMessageContainsNewUsername(loginName);
-    // TODO: Develop the rest of the scenario. E.g. login as new user etc.
+
 
     loginSteps.openLoginPage();
     loginSteps.login(loginName, password);
+    loginSteps.checkIfCurrentPageIsHomePageForCreatedUser(loginName);
   }
 
   @Test
-  public void testImpossibleToReUseAccountNameForRegistration() {
+  public void canNotRegisterExistingAccountName() {
     registrationSteps.openRegistrationPage();
 
-    val loginName = registrationSteps.typeInUserNameAlreadyProvided();
+    String loginName = registrationSteps.typeInExistingUsername();
     registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.SURNAME);
     registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.FIRSTNAME);
     registrationSteps.typeRandomValueInto(RegistrationSteps.FieldName.PATRONIM);

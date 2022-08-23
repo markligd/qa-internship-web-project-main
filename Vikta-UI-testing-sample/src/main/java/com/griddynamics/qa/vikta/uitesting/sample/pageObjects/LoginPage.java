@@ -9,22 +9,22 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage {
 
   @FindBy(id = "tfLoginname")
-  private WebElement Loginname;
+  private WebElement loginName;
 
   @FindBy(id = "tfPassword")
-  private WebElement Password;
+  private WebElement password;
 
   @FindBy(id = "btnSubmitLogin")
-  private WebElement SubmitLogin;
+  private WebElement submitLoginButton;
 
   @FindBy(id = "btnSubmitGoToHome")
-  private WebElement GoToHome;
+  private WebElement goToHomeButton;
 
   @FindBy(xpath = "//div[@class='login']//p[contains(@style, 'color: #FF1C19')]")
-  private WebElement Error;
+  private WebElement error;
 
   @FindBy(id = "btnSubmitGoToRegistration")
-  private WebElement SubmitGoToRegistration;
+  private WebElement submitGoToRegistrationButton;
 
   public HomePage login(String username, String password) {
     tryLogin(username, password);
@@ -32,31 +32,30 @@ public class LoginPage {
   }
 
   public void tryLogin(String username, String password) {
-    Loginname.clear();
-    Loginname.sendKeys(username);
+    loginName.clear();
+    loginName.sendKeys(username);
 
-    Password.clear();
-    Password.sendKeys(password);
+    this.password.clear();
+    this.password.sendKeys(password);
 
-    SubmitLogin.click();
+    submitLoginButton.click();
   }
 
   public RegistrationPage gotoRegistration() {
-    SubmitGoToRegistration.click();
+    submitGoToRegistrationButton.click();
     return new RegistrationPage();
   }
 
   public HomePage gotoHome() {
-    GoToHome.click();
-
+    goToHomeButton.click();
     return new HomePage();
   }
 
   public String getErrorMessage() {
-    return Error.getText();
+    return error.getText();
   }
 
   public WebElement getErrorWebElement() {
-    return Error;
+    return error;
   }
 }

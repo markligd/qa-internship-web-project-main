@@ -1,6 +1,5 @@
 package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 
-import java.util.UUID;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -10,61 +9,61 @@ import org.openqa.selenium.support.FindBy;
 public class RegistrationPage extends BasePage {
 
   @FindBy(id = "tbLoginName")
-  private WebElement LoginName;
+  private WebElement loginName;
 
   @FindBy(id = "tbSurname")
-  private WebElement Surname;
+  private WebElement surname;
 
   @FindBy(id = "tbFirstName")
-  private WebElement FirstName;
+  private WebElement firstName;
 
   @FindBy(id = "tbMiddleName")
-  private WebElement MiddleName;
+  private WebElement middleName;
 
   //email added
   @FindBy(id = "tbEmail")
-  private WebElement Email;
+  private WebElement email;
 
   @FindBy(id = "tbPassword")
-  private WebElement Password;
+  private WebElement password;
 
   //co to jest?
   @FindBy(id = "btnSubmitGoToHome")
-  private WebElement GoToHome;
+  private WebElement goToHomeButton;
 
   @FindBy(id = "tSuccessMessage")
-  private WebElement SuccessMessage;
+  private WebElement successMessage;
 
   //register button added, user already exists also
 
   @FindBy(id = "btnRegister")
-  private WebElement RegisterButton;
+  private WebElement registerButton;
 
   @FindBy(id = "lLoginName")
-  private WebElement LoginNameMessage;
+  private WebElement loginNameMessage;
 
   public void typeInLoginname(String value) {
-    typeIn(value, LoginName);
+    typeIn(value, loginName);
   }
 
   public void typeInSurname(String value) {
-    typeIn(value, Surname);
+    typeIn(value, surname);
   }
 
   public void typeInFirstname(String value) {
-    typeIn(value, FirstName);
+    typeIn(value, firstName);
   }
 
   public void typeInPatronim(String value) {
-    typeIn(value, MiddleName);
+    typeIn(value, middleName);
   }
 
   public void typeInEmail(String value) {
-    typeIn(value, Email);
+    typeIn(value, email);
   }
 
   public void typeInPassword(String value) {
-    typeIn(value, Password);
+    typeIn(value, password);
   }
 
   private void typeIn(String value, WebElement targetElement) {
@@ -73,22 +72,22 @@ public class RegistrationPage extends BasePage {
   }
 
   public String getMessageText() {
-    return SuccessMessage.getText();
+    return successMessage.getText();
   }
 
   public WebElement getMessageWebElement() {
-    return SuccessMessage;
+    return successMessage;
   }
 
   public String getUserAlreadyExistsMessageText() {
-    return LoginNameMessage.getText();
+    return loginNameMessage.getText();
   }
 
   public WebElement getUserAlreadyExistsMessageWebElement() {
-    return LoginNameMessage;
+    return loginNameMessage;
   }
 
   public void clickRegisterUserButton() {
-    RegisterButton.click();
+    registerButton.click();
   }
 }

@@ -9,25 +9,25 @@ import org.openqa.selenium.support.FindBy;
 public class HomePage extends BasePage {
 
   @FindBy(id = "btnResetSearchCriteria")
-  private WebElement ResetSearchCriteria;
+  private WebElement resetSearchCriteriaButton;
 
   @FindBy(id = "btnSearch")
-  private WebElement Search;
+  private WebElement searchButton;
 
   @FindBy(id = "tbTerm")
-  private WebElement Term;
+  private WebElement term;
 
   @FindBy(id = "tbRatingFrom")
-  private WebElement RatingFrom;
+  private WebElement ratingFrom;
 
   @FindBy(id = "tbRatingTo")
-  private WebElement RatingTo;
+  private WebElement ratingTo;
 
   @FindBy(id = "tbPriceFrom")
-  private WebElement PriceFrom;
+  private WebElement priceFrom;
 
   @FindBy(id = "tbPriceTo")
-  private WebElement PriceTo;
+  private WebElement priceTo;
 
   private void typeIn(String value, WebElement targetElement) {
     targetElement.clear();
@@ -35,26 +35,26 @@ public class HomePage extends BasePage {
   }
 
   public void typeInRatingFrom(String ratingFrom) {
-    typeIn(ratingFrom, RatingFrom);
+    typeIn(ratingFrom, this.ratingFrom);
   }
 
   public void typeInRatingTo(String ratingTo) {
-    typeIn(ratingTo, RatingTo);
+    typeIn(ratingTo, this.ratingTo);
   }
 
   public void typeInPriceFrom(String priceFrom) {
-    typeIn(priceFrom, PriceFrom);
+    typeIn(priceFrom, this.priceFrom);
   }
 
   public void typeInPriceTo(String priceTo) {
-    typeIn(priceTo, PriceTo);
+    typeIn(priceTo, this.priceTo);
   }
 
   public void clickSearchButton() {
-    Search.click();
+    searchButton.click();
   }
 
   public void clickResetButton() {
-    ResetSearchCriteria.click();
+    resetSearchCriteriaButton.click();
   }
 }

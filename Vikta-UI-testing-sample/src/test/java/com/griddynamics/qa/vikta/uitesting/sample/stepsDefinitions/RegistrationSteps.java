@@ -37,6 +37,7 @@ public class RegistrationSteps extends BaseSteps {
     getDriver().get(getData().registrationPageUrl());
   }
 
+  //fill
   @Step
   public String typeRandomValueInto(FieldName fieldName) {
     String valueToReturn;
@@ -88,7 +89,7 @@ public class RegistrationSteps extends BaseSteps {
   }
 
   @Step
-  public String typeInUserNameAlreadyProvided() {
+  public String typeInExistingUsername() {
     String existingLoginName = getData().userName();
     page().typeInLoginname(existingLoginName);
     return existingLoginName;
