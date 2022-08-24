@@ -1,13 +1,12 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.codeborne.selenide.WebDriverRunner;
 import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataAndProperties;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.BasePage;
 import java.util.Objects;
 import java.util.UUID;
+import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,13 +50,14 @@ abstract class BaseSteps {
 
     assertCurrentPageUrl(getData().baseUrl(), "Home page was expected to be the current one.");
 
-    assertThat(currentPage.getCurrentUserName())
+    Assertions
+      .assertThat(currentPage.getCurrentUserName())
       .as("Unexpected current user's name displayed. Expected: %s", username)
       .contains(username);
     //TODO: Assert displayed role as well.
   }
 
   void assertCurrentPageUrl(String expectedUrl, String messageOnFail) {
-    assertThat(getDriver().getCurrentUrl()).as(messageOnFail).contains(expectedUrl);
+    Assertions.assertThat(getDriver().getCurrentUrl()).as(messageOnFail).contains(expectedUrl);
   }
 }

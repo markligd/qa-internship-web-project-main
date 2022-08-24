@@ -1,19 +1,30 @@
 package com.griddynamics.qa.vikta.uitesting.sample.utils;
 
+import com.github.javafaker.Faker;
+
 import java.util.UUID;
 
 public class StringHelper {
 
-  public static String generateRandomString(int maxLength) {
-    String candidate = UUID.randomUUID().toString().replaceAll("\\d", "A");
-    if (candidate.length() >= maxLength) {
-      return candidate.substring(0, maxLength);
-    } else {
-      return candidate;
-    }
-  }
+    private static final Faker faker = new Faker();
 
-  public static String generateRandomString() {
-    return generateRandomString(16); //Remember!!! Magic numbers are bad, bad, bad practice!
-  }
+    public static String generateRandomLoginName() {
+        return faker.name().username();
+    }
+
+    public static String generateRandomSurname() {
+        return faker.name().lastName();
+    }
+
+    public static String generateRandomFirstNameOrPatronim() {
+        return faker.name().firstName();
+    }
+
+    public static String generateRandomEmail() {
+        return faker.bothify("????##@example.com");
+    }
+
+    public static String generateRandomPassword() {
+        return faker.bothify("[a-z1-9]{10}");
+    }
 }
