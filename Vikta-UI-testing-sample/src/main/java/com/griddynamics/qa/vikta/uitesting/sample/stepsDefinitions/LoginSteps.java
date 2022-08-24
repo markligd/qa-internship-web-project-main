@@ -1,9 +1,8 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.LoginPage;
 import io.qameta.allure.Step;
+import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -54,7 +53,8 @@ public class LoginSteps extends BaseSteps {
   @Step
   public void verifyErrorMessage(String text) {
     getWait().until(ExpectedConditions.visibilityOf(page().getErrorWebElement()));
-    assertThat(page().getErrorMessage().trim())
+    Assertions
+      .assertThat(page().getErrorMessage().trim())
       .as("Error message was nor shown or had unexpected content.")
       .contains(text);
   }
