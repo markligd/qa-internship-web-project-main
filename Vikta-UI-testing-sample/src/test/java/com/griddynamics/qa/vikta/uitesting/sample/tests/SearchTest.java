@@ -1,12 +1,6 @@
 package com.griddynamics.qa.vikta.uitesting.sample.tests;
 
-import static io.restassured.RestAssured.given;
-
-import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
-import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.HomePageSteps;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import java.util.List;
+import com.griddynamics.qa.vikta.uitesting.sample.utils.ApiMethods;
 import org.testng.annotations.Test;
 
 public class SearchTest extends BaseTest {
@@ -15,32 +9,38 @@ public class SearchTest extends BaseTest {
   public void findFirstImageByTitle() {
     homePageSteps.openHomePage();
 
-    String title = homePageSteps.getFirstProductTitle();
+    String firstTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(0);
+
+    homePageSteps.typeItemTitleFromApiToSearchBar(firstTitle);
 
     homePageSteps.clickSearchButton();
 
-    homePageSteps.checkIfSearchedProductTitleIsInResultsPage(title);
+    homePageSteps.checkIfSearchedProductTitleIsInResultsPage(firstTitle);
   }
 
   @Test
   public void findSecondImageByTitle() {
     homePageSteps.openHomePage();
 
-    String title = homePageSteps.getSecondProductTitle();
+    String secondTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(1);
+
+    homePageSteps.typeItemTitleFromApiToSearchBar(secondTitle);
 
     homePageSteps.clickSearchButton();
 
-    homePageSteps.checkIfSearchedProductTitleIsInResultsPage(title);
+    homePageSteps.checkIfSearchedProductTitleIsInResultsPage(secondTitle);
   }
 
   @Test
   public void findFifthImageByTitle() {
     homePageSteps.openHomePage();
 
-    String title = homePageSteps.getFifthProductTitle();
+    String fifthTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(4);
+
+    homePageSteps.typeItemTitleFromApiToSearchBar(fifthTitle);
 
     homePageSteps.clickSearchButton();
 
-    homePageSteps.checkIfSearchedProductTitleIsInResultsPage(title);
+    homePageSteps.checkIfSearchedProductTitleIsInResultsPage(fifthTitle);
   }
 }

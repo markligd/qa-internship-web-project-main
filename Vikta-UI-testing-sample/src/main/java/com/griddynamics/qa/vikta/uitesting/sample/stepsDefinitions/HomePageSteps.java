@@ -1,10 +1,8 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
 
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
-import com.griddynamics.qa.vikta.uitesting.sample.utils.ApiMethods;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,24 +28,8 @@ public class HomePageSteps extends BaseSteps {
   }
 
   @Step
-  public String getFirstProductTitle() {
-    String firstTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(0);
-    page().typeInTermToSearchBar(firstTitle);
-    return firstTitle;
-  }
-
-  @Step
-  public String getSecondProductTitle() {
-    String secondTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(1);
-    page().typeInTermToSearchBar(secondTitle);
-    return secondTitle;
-  }
-
-  @Step
-  public String getFifthProductTitle() {
-    String fifthTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(4);
-    page().typeInTermToSearchBar(fifthTitle);
-    return fifthTitle;
+  public void typeItemTitleFromApiToSearchBar(String title) {
+    page().typeInTermToSearchBar(title);
   }
 
   @Step
