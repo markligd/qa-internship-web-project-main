@@ -11,7 +11,7 @@ public class SearchTest extends BaseTest {
 
     String firstTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(0);
 
-    homePageSteps.typeItemTitleFromApiToSearchBar(firstTitle);
+    homePageSteps.typeItemTitleToSearchBar(firstTitle);
 
     homePageSteps.clickSearchButton();
 
@@ -24,7 +24,7 @@ public class SearchTest extends BaseTest {
 
     String secondTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(1);
 
-    homePageSteps.typeItemTitleFromApiToSearchBar(secondTitle);
+    homePageSteps.typeItemTitleToSearchBar(secondTitle);
 
     homePageSteps.clickSearchButton();
 
@@ -37,7 +37,7 @@ public class SearchTest extends BaseTest {
 
     String fifthTitle = ApiMethods.getListOfTitlesOfAvailableItems().get(4);
 
-    homePageSteps.typeItemTitleFromApiToSearchBar(fifthTitle);
+    homePageSteps.typeItemTitleToSearchBar(fifthTitle);
 
     homePageSteps.clickSearchButton();
 

@@ -28,7 +28,7 @@ public class HomePageSteps extends BaseSteps {
   }
 
   @Step
-  public void typeItemTitleFromApiToSearchBar(String title) {
+  public void typeItemTitleToSearchBar(String title) {
     page().typeInTermToSearchBar(title);
   }
 
