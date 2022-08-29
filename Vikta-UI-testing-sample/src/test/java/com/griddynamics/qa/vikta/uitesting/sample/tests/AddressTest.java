@@ -14,8 +14,18 @@ public class AddressTest extends BaseTest {
   @Test
   public void testIfUserIsAbleToAddAddress() {
     addressSteps.clickAddAddressTab();
-    addressSteps.fillInAddAddressForm();
+
+    addressSteps.fillInAddAddressFormWithStreetName();
+    addressSteps.fillInAddAddressFormWithAdditionalStreetInfo();
+    addressSteps.fillInAddAddressFormWithCityName();
+    addressSteps.fillInAddAddressFormWithRegion();
+    addressSteps.fillInAddAddressFormWithPostalCode();
+    String nickname = addressSteps.fillInAddAddressFormWithNickname();
+
     addressSteps.clickSaveButton();
     addressSteps.verifySuccessfulAddAddressMessageIsDisplayed();
+
+    addressSteps.clickAddressesTab();
+    addressSteps.checkIfNewAddressIsAdded(nickname);
   }
 }
