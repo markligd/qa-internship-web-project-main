@@ -26,4 +26,28 @@ public class StringHelper {
   public static String generateRandomPassword() {
     return faker.bothify("[a-z1-9]{10}");
   }
+
+  public static String generateRandomStreetName() {
+    return faker.address().streetName();
+  }
+
+  public static String generateRandomCityName() {
+    return faker.address().cityName();
+  }
+
+  public static String generateRandomRegion() {
+    return faker.address().country();
+  }
+
+  public static String generateRandomPostalCode() {
+    return faker.address().zipCode();
+  }
+
+  public static String generateRandomAdditionalStreetInfo() {
+    return faker.address().streetAddressNumber();
+  }
+
+  public static String generateRandomAddressNickname() {
+    return faker.name().username();
+  }
 }
