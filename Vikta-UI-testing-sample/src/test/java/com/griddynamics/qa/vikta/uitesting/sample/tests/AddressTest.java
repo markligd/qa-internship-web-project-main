@@ -12,20 +12,25 @@ public class AddressTest extends BaseTest {
   }
 
   @Test
-  public void testIfUserIsAbleToAddAddress() {
+  public void testIfUserIsAbleToAddAndDeleteAddress() {
     addressSteps.clickAddAddressTab();
 
-    addressSteps.fillInAddAddressFormWithStreetName();
+    String streetName = addressSteps.fillInAddAddressFormWithStreetName();
     addressSteps.fillInAddAddressFormWithAdditionalStreetInfo();
     addressSteps.fillInAddAddressFormWithCityName();
     addressSteps.fillInAddAddressFormWithRegion();
     addressSteps.fillInAddAddressFormWithPostalCode();
-    String nickname = addressSteps.fillInAddAddressFormWithNickname();
+    addressSteps.fillInAddAddressFormWithNickname();
 
     addressSteps.clickSaveButton();
     addressSteps.verifySuccessfulAddAddressMessageIsDisplayed();
 
     addressSteps.clickAddressesTab();
-    addressSteps.checkIfNewAddressIsAdded(nickname);
+    addressSteps.checkIfParticularAddressContainsStreetName("krakowska");
+
+    addressSteps.checkIfNewAddressIsAddedToAddresses(streetName);
+    addressSteps.deleteLastAddedAddress();
+    addressSteps.verifySuccessfulDeleteMessage();
+    addressSteps.verifyIfAddressWasDeleted(streetName);
   }
 }
