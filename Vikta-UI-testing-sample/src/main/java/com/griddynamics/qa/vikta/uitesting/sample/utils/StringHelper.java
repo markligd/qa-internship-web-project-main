@@ -1,7 +1,7 @@
 package com.griddynamics.qa.vikta.uitesting.sample.utils;
 
 import com.github.javafaker.Faker;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
 
 public class StringHelper {
 
@@ -48,6 +48,26 @@ public class StringHelper {
   }
 
   public static String generateRandomAddressNickname() {
+    return faker.name().username();
+  }
+
+  public static String generateRandomCardNumber() {
+    return faker.numerify("################");
+  }
+
+  public static String generateRandomCardCode() {
+    return faker.numerify("####");
+  }
+
+  public static String generateRandomOwner() {
+    return faker.name().fullName();
+  }
+
+  public static String generateRandomCardExpirationDate() {
+    return faker.numerify("####-##-##");
+  }
+
+  public static String generateRandomNickname() {
     return faker.name().username();
   }
 }
