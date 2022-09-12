@@ -1,5 +1,7 @@
 package com.griddynamics.qa.vikta.uitesting.sample.pageObjects;
 
+import java.util.List;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -89,6 +91,10 @@ public class BasePage {
 
   public void clickCards() {
     card.click();
+  }
+
+  public WebElement getImageOfShoppingCart() {
+    return toCartTop;
   }
 
   public String getNumberOfItemsInCart() {
