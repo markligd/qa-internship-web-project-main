@@ -38,6 +38,13 @@ public class HomePage extends BasePage {
   @FindBy(css = ".products-list")
   private WebElement productsList;
 
+  @FindBy(css = ":nth-child(1)> nav > a")
+  private WebElement firstItemDetailsButton;
+
+  public void clickFirstItemDetailsButton() {
+    firstItemDetailsButton.click();
+  }
+
   private void typeIn(String value, WebElement targetElement) {
     targetElement.clear();
     targetElement.sendKeys(value);

@@ -18,6 +18,8 @@ public class BaseTest {
   AddressSteps addressSteps;
   CardSteps cardSteps;
 
+  ShoppingCartSteps shoppingCartSteps;
+
   BaseTest() {
     driverManager = new DriverManager(DataProvider.get());
   }
@@ -31,6 +33,7 @@ public class BaseTest {
     homePageSteps = new HomePageSteps(driverManager.get());
     addressSteps = new AddressSteps(driverManager.get());
     cardSteps = new CardSteps(driverManager.get());
+    shoppingCartSteps = new ShoppingCartSteps(driverManager.get());
   }
 
   @AfterClass
