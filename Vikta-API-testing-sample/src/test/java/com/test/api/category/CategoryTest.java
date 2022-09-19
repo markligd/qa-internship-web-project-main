@@ -13,9 +13,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -217,6 +219,39 @@ public class CategoryTest extends BaseTest {
                 .isEqualTo(categoryAttributes.getDescription());
 
     }
+    @Test
+    public void canGetEntity(){
+
+        List<CategoryDTO> titles = given()
+                .spec(defaultRequestSpec())
+                .when()
+                .get(getTestEnvironment().getCategoriesPath())
+                .then()
+                .spec(defaultResponseSpec())
+                .extract()
+                .body().jsonPath().getList("",CategoryDTO.class);
+
+
+        String newTitlesTerm = titles.stream()
+                .map(CategoryDTO::getTitle)
+                .map(title -> title.replace(" ", "~"))
+                .collect(Collectors.joining("|"));
+
+
+        List<String> getEntityResponseList = given()
+                .spec(defaultRequestSpec())
+                .queryParam("term", newTitlesTerm)
+                .when()
+                .get(getTestEnvironment().getCategoriesSearchPath())
+                .then()
+                .extract()
+                .body().jsonPath().get("title");
+
+        assertThat(titles.size())
+                .as("Number of categories titles should be equal to list of collected titles by get request")
+                .isEqualTo(getEntityResponseList.size());
+
+    }
 
 
     @Test
@@ -233,23 +268,6 @@ public class CategoryTest extends BaseTest {
                 .as("List of categories wasn't found")
                 .isNotEmpty();
     }
-
-
-    @Test
-    public void checkListingAllCategoriesUsingResponseTitles() {
-        List<String> titles = given().spec(defaultRequestSpec())
-                .when()
-                .get(getTestEnvironment().getCategoriesPath())
-                .then()
-                .spec(defaultResponseSpec())
-                .extract()
-                .body().jsonPath().get("title");
-        assertThat(titles)
-                .as("List of all categories titles shouldn't be empty")
-                .isNotEmpty();
-
-    }
-
 
     private CategoryDTO getExistingCategoryById(int id) {
         final String idQueryParam = "id";
