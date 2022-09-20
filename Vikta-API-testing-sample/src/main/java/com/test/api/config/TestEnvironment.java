@@ -25,4 +25,15 @@ public final class TestEnvironment {
 
     @Value("${categoriesSearchPath}")
     private String categoriesSearchPath;
+
+    @Value("${addressPath}")
+    private String addressPath;
+
+    @Value("${addressesPath}")
+    private String addressesPath;
+
+    @Value("${addressesSearchPath}")
+    private String addressesSearchPath;
+
+
 }
