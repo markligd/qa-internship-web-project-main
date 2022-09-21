@@ -66,16 +66,16 @@ public class CategoryTest extends BaseTest {
 
     }
 
-    @ParameterizedTest
-    @MethodSource("AcceptableDataForNewCategory")
-    public void postNewCategoryWithAcceptableData(long imageItemIds, String pathToCatImage, String title, String description) {
+
+    @Test
+    public void postNewCategoryWithAcceptableData() {
         HashSet<Long> newSet = new HashSet<>();
-        newSet.add(imageItemIds);
+        newSet.add(100L);
 
         HashMap<String, Object> newCategoryMap = new HashMap<>();
-        newCategoryMap.put("pathToCatImage", pathToCatImage);
-        newCategoryMap.put("title", title);
-        newCategoryMap.put("description", description);
+        newCategoryMap.put("pathToCatImage", "https://photos/33");
+        newCategoryMap.put("title", "Category title");
+        newCategoryMap.put("description", "Category description");
         newCategoryMap.put("imageItemIds", newSet);
 
         Response response = given()
@@ -123,7 +123,7 @@ public class CategoryTest extends BaseTest {
         newSet.add(541L);
 
         CategoryDTO categoryAttributes = new CategoryDTO();
-        categoryAttributes.setPathToCatImage("/NewPath:");
+        categoryAttributes.setPathToCatImage("https://photos/33");
         categoryAttributes.setTitle("NewImageCategory");
         categoryAttributes.setDescription("NewImage description");
         categoryAttributes.setImageItemIds(newSet);
@@ -181,7 +181,7 @@ public class CategoryTest extends BaseTest {
         newSet.add(541L);
 
         CategoryDTO categoryAttributes = new CategoryDTO();
-        categoryAttributes.setPathToCatImage("/NewPath:");
+        categoryAttributes.setPathToCatImage("https://photos/33");
         categoryAttributes.setTitle("NewImageCategory");
         categoryAttributes.setDescription("NewImage description");
         categoryAttributes.setImageItemIds(newSet);
@@ -282,17 +282,10 @@ public class CategoryTest extends BaseTest {
     }
 
 
-    private static Stream<Arguments> AcceptableDataForNewCategory() {
-        return Stream.of(
-                Arguments.of(15, "s:", "NewCategory", "Description of new category")
-        );
-    }
-
     private static Stream<Arguments> NonAcceptableDataForNewCategory() {
         return Stream.of(
-                Arguments.of(12, "s:", "", "Description of new category"),
+                Arguments.of(12, "https://photos/33", "", "Description of new category"),
                 Arguments.of(12, "", "NewCategory", "Description of new category")
-
         );
     }
 }
