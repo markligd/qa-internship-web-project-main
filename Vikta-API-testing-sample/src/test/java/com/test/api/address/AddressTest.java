@@ -1,4 +1,4 @@
-package com.test.api.category;
+package com.test.api.address;
 
 import com.test.api.dto.AddressDTO;
 import com.test.api.execution.BaseTest;
