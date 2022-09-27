@@ -35,5 +35,23 @@ public final class TestEnvironment {
     @Value("${addressesSearchPath}")
     private String addressesSearchPath;
 
+    @Value("${imageItemPath}")
+    private String imageItemPath;
+
+    @Value("${imageItemLinkPath}")
+    private String imageItemLinkPath;
+
+    @Value("${imageItemListPath}")
+    private String imageItemListPath;
+
+    @Value("${imageItemSearchPath}")
+    private String imageItemSearchPath;
+
+    @Value("${imageItemAdvancedSearchPath}")
+    private String imageItemAdvancedSearchPath;
+
+    @Value("${imageItemUnlinkPath}")
+    private String imageItemUnlinkPath;
+
 
 }
