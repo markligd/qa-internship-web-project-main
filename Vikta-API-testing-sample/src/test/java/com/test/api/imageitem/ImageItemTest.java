@@ -432,8 +432,12 @@ public class ImageItemTest extends BaseTest {
         newTagsList.add("MO");
         return Stream.of(
                 Arguments.of(19.33, 1.25, 5, 0, newTagsList),
+                Arguments.of(20.33, 1.25, 7, 7, newTagsList),
+                Arguments.of(20.33, 1.25, 5, -1, newTagsList),
+                Arguments.of(20.33, -1.25, 5, 1, newTagsList),
                 Arguments.of(20.5, 1.25, 5, 0, new ArrayList<>()),
-                Arguments.of(19.33, 1.25, 0, 0, newTagsList)
+                Arguments.of(1000000, 1.25, 5, 1, newTagsList),
+                Arguments.of(20.5, 1.25, 3, 0, newTagsList)
         );
     }
 
