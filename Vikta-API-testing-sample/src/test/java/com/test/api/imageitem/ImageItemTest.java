@@ -31,7 +31,7 @@ public class ImageItemTest extends BaseTest {
                 .then()
                 .spec(defaultResponseSpec())
                 .extract()
-                .body().jsonPath().get("id");
+                .body().jsonPath().get(idQueryParam);
 
         final long id = Long.parseLong(String.valueOf(ImagesIds.get(0)));
 
@@ -113,22 +113,11 @@ public class ImageItemTest extends BaseTest {
                 .as("New image should be created")
                 .isEqualTo(201);
     }
-
     @ParameterizedTest
     @MethodSource("NonAcceptableDataForCreatingNewImage")
-    public void canNotPostNewImageWithNonAcceptableData(String path, String author, String description, double price, int rating, String title, List<String> tags, HashSet<Long> ids) {
-        ImageItemDTO newImage = new ImageItemDTO();
-        newImage.setPathToImage(path);
-        newImage.setAuthor(author);
-        newImage.setDescription(description);
-        newImage.setPrice(price);
-        newImage.setRating(rating);
-        newImage.setTitle(title);
-        newImage.setCategoryIds(ids);
-        newImage.setTags(tags);
-
+    public void canNotPostNewImageWithNonAcceptableData(ImageItemDTO newImageItem){
         Response response = given().spec(defaultRequestSpec())
-                .body(newImage)
+                .body(newImageItem)
                 .when()
                 .post(getTestEnvironment().getImageItemPath())
                 .then()
@@ -169,7 +158,6 @@ public class ImageItemTest extends BaseTest {
         newImage.setDescription("New_Description");
         newImage.setId(createdImageResponse.getId());
 
-
         Response updatedImageResponse = given().spec(defaultRequestSpec())
                 .body(newImage)
                 .when()
@@ -189,7 +177,6 @@ public class ImageItemTest extends BaseTest {
         List<String> newList = new ArrayList<>();
         newList.add("Tag");
 
-
         ImageItemDTO newImage = new ImageItemDTO();
         newImage.setPathToImage("https://photos/60");
         newImage.setAuthor("Picasso");
@@ -200,7 +187,6 @@ public class ImageItemTest extends BaseTest {
         newImage.setCategoryIds(new HashSet<>());
         newImage.setTags(newList);
         newImage.setId(0L);
-
 
         Response imageResponse = given().spec(defaultRequestSpec())
                 .body(newImage)
@@ -221,7 +207,6 @@ public class ImageItemTest extends BaseTest {
         List<String> newList = new ArrayList<>();
         newList.add("Tag");
 
-
         ImageItemDTO newImage = new ImageItemDTO();
         newImage.setPathToImage("https://photos/60");
         newImage.setAuthor("Picasso");
@@ -241,7 +226,6 @@ public class ImageItemTest extends BaseTest {
                 .spec(defaultResponseSpec())
                 .extract()
                 .as(ImageItemDTO.class);
-
 
         Long id = imageResponse.getId();
 
@@ -438,12 +422,8 @@ public class ImageItemTest extends BaseTest {
         List<String> newTagsList = new ArrayList<>();
         newTagsList.add("MO");
         return Stream.of(
-
                 Arguments.of(20.5, 1.25, 5, 0, newTagsList),
                 Arguments.of(20.5, 19.34, 5, 5, newTagsList)
-
-
-
         );
     }
 
@@ -451,14 +431,11 @@ public class ImageItemTest extends BaseTest {
         List<String> newTagsList = new ArrayList<>();
         newTagsList.add("MO");
         return Stream.of(
-
                 Arguments.of(19.33, 1.25, 5, 0, newTagsList),
                 Arguments.of(20.5, 1.25, 5, 0, new ArrayList<>()),
                 Arguments.of(19.33, 1.25, 0, 0, newTagsList)
-
         );
     }
-
 
     private long getRandomCategoryId() {
         List<CategoryDTO> categories = given().spec(defaultRequestSpec())
@@ -470,20 +447,15 @@ public class ImageItemTest extends BaseTest {
         return categories.get(new Random().nextInt(categories.size())).getId();
     }
 
-
-    private static Stream<Arguments> NonAcceptableDataForCreatingNewImage() {
+    private static Stream<ImageItemDTO> NonAcceptableDataForCreatingNewImage() {
         Set<Long> ids = new HashSet<>();
         ids.add(1L);
         List<String> tags = new ArrayList<>();
         tags.add("New_tag");
         return Stream.of(
-                Arguments.of("", "picasso", "planes", 5.8, 2, "Picasso planes", tags, ids),
-                Arguments.of("https://photos/60", "", "planes", 5.8, 2, "Picasso planes", tags, ids),
-                Arguments.of("https://photos/60", "picasso", "planes", 5.8, 2, "", tags, ids)
-
-
+                new ImageItemDTO("picasso", ids, "planes", "", 5.8, 2, tags, "Picasso planes"),
+                new ImageItemDTO("", ids, "planes", "https://photos/60", 5.8, 2, tags, "Picasso planes"),
+                new ImageItemDTO("picasso", ids, "planes", "https://photos/60", 5.8, 2, tags, "")
         );
     }
-
-
 }
