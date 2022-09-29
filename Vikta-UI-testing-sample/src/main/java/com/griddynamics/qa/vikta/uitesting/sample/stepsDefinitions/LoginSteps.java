@@ -5,12 +5,15 @@ import io.qameta.allure.Step;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Login functionality related steps.
  */
 public class LoginSteps extends BaseSteps {
 
+  @Autowired
+  LoginPage loginPage;
   public LoginSteps(WebDriver driver) {
     super(driver);
   }

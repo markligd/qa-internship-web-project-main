@@ -3,16 +3,19 @@ package com.griddynamics.qa.vikta.uitesting.sample.tests;
 import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
 import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
 
   // TODO: Think about some IoC/DI here.
+
   private DriverManager driverManager;
 
   LoginSteps loginSteps;
   RegistrationSteps registrationSteps;
+  @Autowired
   HomePageSteps homePageSteps;
 
   AddressSteps addressSteps;
