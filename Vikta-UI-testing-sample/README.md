@@ -18,7 +18,7 @@ T B D
 
 ## ...run something using IntelijIdea
 1. Create a TestNG Run/Debug Configuration
-2. Set `Class` to the test class e.g. `com.griddynamics.qa.vikta.uitesting.sample.tests.LoginTest`. You could specify concrete method(test) as well
+2. Set `Class` to the test class e.g. `com.griddynamics.qa.vikta.uitesting.sample.tests.ui.LoginTest`. You could specify concrete method(test) as well
 3. Save the configuration and use it to run or debug your tests.
 
 ## ...view test run report

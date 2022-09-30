@@ -5,21 +5,21 @@ import org.openqa.selenium.support.FindBy;
 
 public class ItemDetailsPage {
 
-    @FindBy(id = "aAddToCart")
-    private WebElement addToCartButton;
+  @FindBy(id = "aAddToCart")
+  private WebElement addToCartButton;
 
-    @FindBy(id = "tMessage")
-    private WebElement addProductConfirmationMessage;
+  @FindBy(id = "tMessage")
+  private WebElement addProductConfirmationMessage;
 
-    public void clickAddToCartButton() {
-        addToCartButton.click();
-    }
+  public void clickAddToCartButton() {
+    addToCartButton.click();
+  }
 
-    public WebElement getAddProductConfirmationMessageWebElement() {
-        return addProductConfirmationMessage;
-    }
+  public WebElement getAddProductConfirmationMessageWebElement() {
+    return addProductConfirmationMessage;
+  }
 
-    public String getAddProductConfirmationMessageText() {
-        return addProductConfirmationMessage.getText();
-    }
+  public String getAddProductConfirmationMessageText() {
+    return addProductConfirmationMessage.getText();
+  }
 }

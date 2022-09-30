@@ -1,105 +1,112 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
+import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataConfiguration;
+import com.griddynamics.qa.vikta.uitesting.sample.config.TestSetupConfiguration;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
 import com.griddynamics.qa.vikta.uitesting.sample.utils.StringHelper;
 import io.qameta.allure.Step;
+import org.apache.commons.lang.NotImplementedException;
 import org.assertj.core.api.Assertions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Registration functionality related steps.
  */
-public class RegistrationSteps extends BaseSteps {
+public class RegistrationSteps {
 
   private static String SUCCESSFUL_REGISTRATION_MESSAGE_PREFIX =
     "User has been registered successfully: ";
-
   private static String FAILED_REGISTRATION_MESSAGE_PREFIX =
     "There is already a user registered with the loginname provided";
 
-  public RegistrationSteps(WebDriver driver) {
-    super(driver);
-  }
+  @Autowired
+  private RegistrationPage registrationPage;
+
+  @Autowired
+  private DriverManager driverManager;
+
+  @Autowired
+  private TestSetupConfiguration testSetupConfiguration;
+
+  @Autowired
+  private TestDataConfiguration testDataConfiguration;
 
   @Step
   public void openRegistrationPage() {
-    getDriver().get(getData().registrationPageUrl());
+    driverManager.get().get(testSetupConfiguration.getRegistrationPageUrl());
   }
 
   @Step
   public String fillInRegistrationFormWithLoginName() {
     String randomLoginName = StringHelper.generateRandomLoginName();
-    page().typeInLoginname(randomLoginName);
+    registrationPage.typeInLoginname(randomLoginName);
     return randomLoginName;
   }
 
   @Step
   public void fillInRegistrationFormWithSurname() {
     String randomSurname = StringHelper.generateRandomSurname();
-    page().typeInSurname(randomSurname);
+    registrationPage.typeInSurname(randomSurname);
   }
 
   @Step
   public void fillInRegistrationFormWithFirstName() {
     String randomFirstName = StringHelper.generateRandomFirstNameOrPatronim();
-    page().typeInFirstname(randomFirstName);
+    registrationPage.typeInFirstname(randomFirstName);
   }
 
   @Step
   public void fillInRegistrationFormWithPatronim() {
     String randomPatronim = StringHelper.generateRandomFirstNameOrPatronim();
-    page().typeInPatronim(randomPatronim);
+    registrationPage.typeInPatronim(randomPatronim);
   }
 
   @Step
   public void fillInRegistrationFormWithEmail() {
     String randomEmail = StringHelper.generateRandomEmail();
-    page().typeInEmail(randomEmail);
+    registrationPage.typeInEmail(randomEmail);
   }
 
   @Step
   public String fillInRegistrationFormWithPassword() {
     String randomPassword = StringHelper.generateRandomPassword();
-    page().typeInPassword(randomPassword);
+    registrationPage.typeInPassword(randomPassword);
     return randomPassword;
   }
 
   @Step
   public void clickRegisterUserButton() {
-    page().clickRegisterUserButton();
+    registrationPage.clickRegisterUserButton();
   }
 
   @Step
   public void verifyCurrentPageIsRegistration() {
     assertCurrentPageUrl(
-      getData().registrationPageUrl(),
+      testSetupConfiguration.getRegistrationPageUrl(),
       "Registration page was expected to be the current one."
     );
   }
 
   @Step
   public String typeInExistingUsername() {
-    String existingLoginName = getData().userName();
-    page().typeInLoginname(existingLoginName);
+    String existingLoginName = testDataConfiguration.getUserName();
+    registrationPage.typeInLoginname(existingLoginName);
     return existingLoginName;
   }
 
   @Step
   public void verifySuccessfulRegistrationMessageIsDisplayed() {
-    getWait().until(ExpectedConditions.visibilityOf(page().getMessageWebElement()));
     Assertions
-      .assertThat(page().getMessageText().trim())
+      .assertThat(registrationPage.getMessageText().trim())
       .as("Successful registration message was nor shown or had unexpected content.")
       .startsWith(SUCCESSFUL_REGISTRATION_MESSAGE_PREFIX);
   }
 
   @Step
   public void checkFailedRegistrationMessageIsDisplayed() {
-    getWait()
-      .until(ExpectedConditions.visibilityOf(page().getUserAlreadyExistsMessageWebElement()));
     Assertions
-      .assertThat(page().getUserAlreadyExistsMessageText().trim())
+      .assertThat(registrationPage.getUserAlreadyExistsMessageText().trim())
       .as("Failed registration message was nor shown or had unexpected content.")
       .startsWith(FAILED_REGISTRATION_MESSAGE_PREFIX);
   }
@@ -107,13 +114,12 @@ public class RegistrationSteps extends BaseSteps {
   @Step
   public void verifySuccessfulRegistrationMessageContainsNewUsername(String loginnameUsed) {
     Assertions
-      .assertThat(page().getMessageText().trim())
+      .assertThat(registrationPage.getMessageText().trim())
       .as("Successful registration message was expected to contain the new username used.")
       .contains(loginnameUsed);
   }
 
-  //TODO: Think about generics etc instead of this.
-  private RegistrationPage page() {
-    return getPage(RegistrationPage.class);
+  private void assertCurrentPageUrl(String registrationPageUrl, String s) {
+    throw new NotImplementedException();
   }
 }
