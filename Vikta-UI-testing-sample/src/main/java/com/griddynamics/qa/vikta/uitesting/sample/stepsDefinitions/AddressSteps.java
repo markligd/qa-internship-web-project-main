@@ -2,21 +2,31 @@ package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddAddressPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddressesPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import com.griddynamics.qa.vikta.uitesting.sample.utils.StringHelper;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
-public class AddressSteps extends BaseSteps {
+public class AddressSteps {
 
   private static String SUCCESSFUL_ADD_ADDRESS_MESSAGE = "Created user address";
   private static String SUCCESSFUL_DELETE_ADDRESS_MESSAGE = "Deleted";
+
+  @Autowired
+  private HomePage homePage;
+
+  @Autowired
+  private AddressesPage addressesPage;
+
+  @Autowired
+  private AddAddressPage addAddressPage;
 
   @Step
   public void clickAddAddressTab() {
@@ -77,30 +87,29 @@ public class AddressSteps extends BaseSteps {
 
   @Step
   public void verifySuccessfulAddAddressMessageIsDisplayed() {
-    getWait().until(ExpectedConditions.visibilityOf(addAddressPage.getMessageWebElement()));
     Assertions
-        .assertThat(addAddressPage.getMessageText().trim())
-        .as("Successful add address message was nor shown or had unexpected content.")
-        .startsWith(SUCCESSFUL_ADD_ADDRESS_MESSAGE);
+      .assertThat(addAddressPage.getMessageText().trim())
+      .as("Successful add address message was nor shown or had unexpected content.")
+      .startsWith(SUCCESSFUL_ADD_ADDRESS_MESSAGE);
   }
 
   @Step
   public void checkIfNewAddressIsAddedToAddresses(String streetName) {
     List<String> listOfAddresses = addressesPage
-        .getEveryAddress()
-        .stream()
-        .map(WebElement::getText)
-        .collect(Collectors.toList());
+      .getEveryAddress()
+      .stream()
+      .map(WebElement::getText)
+      .collect(Collectors.toList());
     assertThat(listOfAddresses).anyMatch(address -> address.contains(streetName));
   }
 
   @Step
   public void checkIfParticularAddressContainsStreetName(String streetName) {
     List<String> listOfAddresses = addressesPage
-        .getParticularAddress("2")
-        .stream()
-        .map(WebElement::getText)
-        .collect(Collectors.toList());
+      .getParticularAddress("2")
+      .stream()
+      .map(WebElement::getText)
+      .collect(Collectors.toList());
     assertThat(listOfAddresses).anyMatch(address -> address.contains(streetName));
   }
 
@@ -113,21 +122,20 @@ public class AddressSteps extends BaseSteps {
 
   @Step
   public void verifySuccessfulDeleteMessage() {
-    getWait().until(ExpectedConditions.visibilityOf(addressesPage.getDeletedMessageWebElement()));
     Assertions
-        .assertThat(addressesPage.getDeletedMessageText().trim())
-        .as("Successful deleted address message was nor shown or had unexpected content.")
-        .startsWith(SUCCESSFUL_DELETE_ADDRESS_MESSAGE);
+      .assertThat(addressesPage.getDeletedMessageText().trim())
+      .as("Successful deleted address message was nor shown or had unexpected content.")
+      .startsWith(SUCCESSFUL_DELETE_ADDRESS_MESSAGE);
   }
 
   @Step
   public void verifyIfAddressWasDeleted(String streetName) {
     addressesPage.clickGoBackButton();
     List<String> listOfAddresses = addressesPage
-        .getEveryAddress()
-        .stream()
-        .map(WebElement::getText)
-        .collect(Collectors.toList());
+      .getEveryAddress()
+      .stream()
+      .map(WebElement::getText)
+      .collect(Collectors.toList());
     assertThat(listOfAddresses).noneMatch(address -> address.contains(streetName));
   }
 }

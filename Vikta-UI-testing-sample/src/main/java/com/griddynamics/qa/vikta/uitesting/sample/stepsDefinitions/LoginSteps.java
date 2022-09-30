@@ -1,20 +1,39 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
+import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
+import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataConfiguration;
+import com.griddynamics.qa.vikta.uitesting.sample.config.TestSetupConfiguration;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.BasePage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.LoginPage;
 import io.qameta.allure.Step;
+import org.apache.commons.lang.NotImplementedException;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * Login functionality related steps.
  */
-@Component
-public class LoginSteps extends BaseSteps {
+public class LoginSteps {
+
+  @Autowired
+  private LoginPage loginPage;
+
+  @Autowired
+  private DriverManager driverManager;
+
+  @Autowired
+  private TestSetupConfiguration testSetupConfiguration;
+
+  @Autowired
+  private TestDataConfiguration testDataConfiguration;
 
   @Step
   public void openLoginPage() {
-    getWebDriver().get(getData().loginPageUrl());
+    driverManager.get().get(testSetupConfiguration.getLoginPageUrl());
   }
 
   @Step
@@ -24,12 +43,12 @@ public class LoginSteps extends BaseSteps {
 
   @Step
   public void loginAsRegularUser() {
-    loginPage.login(getData().userName(), getData().userPassword());
+    loginPage.login(testDataConfiguration.getUserName(), testDataConfiguration.getUserPassword());
   }
 
   @Step
   public void loginAsAdmin() {
-    loginPage.login(getData().adminName(), getData().adminPassword());
+    loginPage.login(testDataConfiguration.getAdminName(), testDataConfiguration.getAdminPassword());
   }
 
   @Step
@@ -39,20 +58,23 @@ public class LoginSteps extends BaseSteps {
 
   @Step
   public void verifyCurrentPageIsHomePageForTheRegularUser() {
-    verifyCurrentPageIsHomePageForTheUser(getData().userName());
+    verifyCurrentPageIsHomePageForTheUser(testDataConfiguration.getUserName());
   }
 
   @Step
   public void verifyCurrentPageIsHomePageForTheAdmin() {
-    verifyCurrentPageIsHomePageForTheUser(getData().adminName());
+    verifyCurrentPageIsHomePageForTheUser(testDataConfiguration.getAdminName());
   }
 
   @Step
   public void verifyErrorMessage(String text) {
-    getWait().until(ExpectedConditions.visibilityOf(loginPage.getErrorWebElement()));
     Assertions
-        .assertThat(loginPage.getErrorMessage().trim())
-        .as("Error message was nor shown or had unexpected content.")
-        .contains(text);
+      .assertThat(loginPage.getErrorMessage().trim())
+      .as("Error message was nor shown or had unexpected content.")
+      .contains(text);
+  }
+
+  private void verifyCurrentPageIsHomePageForTheUser(String userName) {
+    throw new NotImplementedException();
   }
 }

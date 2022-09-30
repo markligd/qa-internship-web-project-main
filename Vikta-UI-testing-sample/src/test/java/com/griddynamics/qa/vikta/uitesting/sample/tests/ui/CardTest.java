@@ -6,32 +6,31 @@ import org.testng.annotations.Test;
 
 public class CardTest extends BaseTest {
 
-    @BeforeClass
-    public void loginToAccount() {
-        loginSteps.openLoginPage();
-        loginSteps.loginAsRegularUser();
-    }
+  @BeforeClass
+  public void loginToAccount() {
+    loginSteps.openLoginPage();
+    loginSteps.loginAsRegularUser();
+  }
 
-    @Test
-    public void checkIfUserCanAddAndDeleteCard() {
-        cardSteps.clickAddCardTab();
+  @Test
+  public void checkIfUserCanAddAndDeleteCard() {
+    cardSteps.clickAddCardTab();
 
-        String cardNumber = cardSteps.fillInAddCardFormWithCardNumber();
-        cardSteps.fillInAddCardFormWithCardCode();
-        cardSteps.fillInAddCardFormWithOwner();
-        cardSteps.fillInAddCardFormWithCardExpirationDate();
-        cardSteps.fillInAddCardFormWithCardNickname();
+    String cardNumber = cardSteps.fillInAddCardFormWithCardNumber();
+    cardSteps.fillInAddCardFormWithCardCode();
+    cardSteps.fillInAddCardFormWithOwner();
+    cardSteps.fillInAddCardFormWithCardExpirationDate();
+    cardSteps.fillInAddCardFormWithCardNickname();
 
-        cardSteps.clickSaveButton();
-        cardSteps.verifySuccessfulAddCardMessageIsDisplayed();
+    cardSteps.clickSaveButton();
+    cardSteps.verifySuccessfulAddCardMessageIsDisplayed();
 
-        cardSteps.clickGoToCardListTab();
-        cardSteps.checkIfParticularAddressContainsCardNumber("222222222222222");
+    cardSteps.clickGoToCardListTab();
+    cardSteps.checkIfParticularAddressContainsCardNumber("222222222222222");
 
-        cardSteps.checkIfNewCardIsAddedToCardListPage(cardNumber);
-        cardSteps.deleteLastAddedCard();
-        cardSteps.verifySuccessfulDeleteCardMessage();
-        cardSteps.verifyIfCardWasDeleted(cardNumber);
-
-    }
+    cardSteps.checkIfNewCardIsAddedToCardListPage(cardNumber);
+    cardSteps.deleteLastAddedCard();
+    cardSteps.verifySuccessfulDeleteCardMessage();
+    cardSteps.verifyIfCardWasDeleted(cardNumber);
+  }
 }

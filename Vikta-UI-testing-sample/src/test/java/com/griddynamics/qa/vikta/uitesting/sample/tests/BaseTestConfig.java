@@ -12,33 +12,33 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BaseTestConfig {
 
-//  @Bean
-//  public LoginSteps loginSteps() {
-//    return new LoginSteps();
-//  }
-//
-//  @Bean
-//  public RegistrationSteps registrationSteps() {
-//    return new RegistrationSteps();
-//  }
-//
-//  @Bean
-//  public HomePageSteps homePageSteps() {
-//    return new HomePageSteps();
-//  }
-//
-//  @Bean
-//  public AddressSteps addressSteps() {
-//    return new AddressSteps();
-//  }
-//
-//  @Bean
-//  public CardSteps cardSteps() {
-//    return new CardSteps();
-//  }
-//
-//  @Bean
-//  public ShoppingCartSteps shoppingCartSteps() {
-//    return new ShoppingCartSteps();
-//  }
+  @Bean
+  public LoginSteps loginSteps() {
+    return new LoginSteps();
+  }
+
+  @Bean
+  public RegistrationSteps registrationSteps() {
+    return new RegistrationSteps();
+  }
+
+  @Bean
+  public HomePageSteps homePageSteps() {
+    return new HomePageSteps();
+  }
+
+  @Bean
+  public AddressSteps addressSteps() {
+    return new AddressSteps();
+  }
+
+  @Bean
+  public CardSteps cardSteps() {
+    return new CardSteps();
+  }
+
+  @Bean
+  public ShoppingCartSteps shoppingCartSteps() {
+    return new ShoppingCartSteps();
+  }
 }

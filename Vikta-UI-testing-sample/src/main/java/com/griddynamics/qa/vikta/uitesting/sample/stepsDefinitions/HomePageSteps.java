@@ -2,22 +2,32 @@ package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.griddynamics.qa.vikta.uitesting.sample.auxiliary.DriverManager;
+import com.griddynamics.qa.vikta.uitesting.sample.config.TestSetupConfiguration;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Home page related step Definitions
  */
-@Component
-public class HomePageSteps extends BaseSteps {
+public class HomePageSteps {
+
+  @Autowired
+  private HomePage homePage;
+
+  @Autowired
+  private DriverManager driverManager;
+
+  @Autowired
+  private TestSetupConfiguration testSetupConfiguration;
 
   @Step
   public void openHomePage() {
-    getWebDriver().get(getData().baseUrl());
+    driverManager.get().get(testSetupConfiguration.getBaseUrl());
   }
 
   @Step
