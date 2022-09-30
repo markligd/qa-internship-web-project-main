@@ -2,47 +2,41 @@ package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
 
 /**
  * Home page related step Definitions
  */
+@Component
 public class HomePageSteps extends BaseSteps {
-
-  public HomePageSteps(WebDriver driver) {
-    super(driver);
-  }
 
   @Step
   public void openHomePage() {
-    getDriver().get(getData().baseUrl());
+    getWebDriver().get(getData().baseUrl());
   }
 
   @Step
   public void clickSearchButton() {
-    page().clickSearchButton();
+    homePage.clickSearchButton();
   }
 
   @Step
   public void typeItemTitleToSearchBar(String title) {
-    page().typeInTermToSearchBar(title);
+    homePage.typeInTermToSearchBar(title);
   }
 
   @Step
   public void checkIfSearchedProductTitleIsInResultsPage(String productTitle) {
-    List<String> listOfProductTitles = page()
+    List<String> listOfProductTitles = homePage
       .getProductsTitlesFromCurrentPage()
       .stream()
-      .map(webElement -> webElement.getText())
+      .map(WebElement::getText)
       .collect(Collectors.toList());
     assertThat(listOfProductTitles).contains(productTitle);
-  }
-
-  private HomePage page() {
-    return getPage(HomePage.class);
   }
 }

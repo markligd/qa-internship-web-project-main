@@ -16,12 +16,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.springframework.stereotype.Component;
 
 /**
  * Manages WebDriver instantiation etc.
  */
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public final class DriverManager {
 
   private static final int THOUSAND = 1000;

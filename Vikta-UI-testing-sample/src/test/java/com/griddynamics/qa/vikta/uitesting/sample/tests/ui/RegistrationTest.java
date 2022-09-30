@@ -1,5 +1,6 @@
-package com.griddynamics.qa.vikta.uitesting.sample.tests;
+package com.griddynamics.qa.vikta.uitesting.sample.tests.ui;
 
+import com.griddynamics.qa.vikta.uitesting.sample.tests.BaseTest;
 import org.testng.annotations.Test;
 
 /**

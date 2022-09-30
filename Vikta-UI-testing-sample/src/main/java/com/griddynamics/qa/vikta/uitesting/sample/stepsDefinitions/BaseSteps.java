@@ -1,36 +1,52 @@
 package com.griddynamics.qa.vikta.uitesting.sample.stepsDefinitions;
 
-import com.codeborne.selenide.WebDriverRunner;
 import com.griddynamics.qa.vikta.uitesting.sample.config.DataProvider;
 import com.griddynamics.qa.vikta.uitesting.sample.config.TestDataAndProperties;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddAddressPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.AddressesPage;
 import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.BasePage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.CardAddPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.CardsListPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.HomePage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.ItemDetailsPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.LoginPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.RegistrationPage;
+import com.griddynamics.qa.vikta.uitesting.sample.pageObjects.ShoppingCartPage;
 import java.util.Objects;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Component;
 
 /**
  * Base class to contain common auxiliary methods for step definitions.
  */
+@RequiredArgsConstructor
+@Component
 abstract class BaseSteps {
 
-  private WebDriver driver;
+  private WebDriver webDriver;
   private WebDriverWait wait;
+  protected BasePage basePage;
+  protected HomePage homePage;
+  protected AddAddressPage addAddressPage;
+  protected AddressesPage addressesPage;
+  protected LoginPage loginPage;
+  protected CardAddPage addCardPage;
+  protected CardsListPage cardListPage;
+  protected ItemDetailsPage itemDetailsPage;
+  protected RegistrationPage registrationPage;
+  protected ShoppingCartPage shoppingCartPage;
 
-  BaseSteps(WebDriver driver) {
-    this.driver = driver;
-  }
-
-  WebDriver getDriver() {
-    return this.driver;
+  protected WebDriver getWebDriver() {
+    return webDriver;
   }
 
   WebDriverWait getWait() {
     if (Objects.isNull(this.wait)) {
-      this.wait = new WebDriverWait(getDriver(), getData().waitTimeout());
+      this.wait = new WebDriverWait(getWebDriver(), getData().waitTimeout());
     }
 
     return wait;
@@ -40,12 +56,8 @@ abstract class BaseSteps {
     return DataProvider.get();
   }
 
-  <P> P getPage(Class<P> pageClass) {
-    return PageFactory.initElements(getDriver(), pageClass);
-  }
-
   void verifyCurrentPageIsHomePageForTheUser(String username) {
-    BasePage currentPage = getPage(BasePage.class);
+    BasePage currentPage = basePage;
     getWait().until(ExpectedConditions.visibilityOf(currentPage.getLoggedInName()));
 
     assertCurrentPageUrl(getData().baseUrl(), "Home page was expected to be the current one.");
@@ -58,6 +70,6 @@ abstract class BaseSteps {
   }
 
   void assertCurrentPageUrl(String expectedUrl, String messageOnFail) {
-    Assertions.assertThat(getDriver().getCurrentUrl()).as(messageOnFail).contains(expectedUrl);
+    Assertions.assertThat(getWebDriver().getCurrentUrl()).as(messageOnFail).contains(expectedUrl);
   }
 }
